@@ -7,7 +7,7 @@ extension ToSubway on RealtimePositionList {
     return Subway(
       stationName: statnNm ?? '',
       trainStatus: trainSttus ?? '',
-      destination: statnNm ?? '',
+      destination: statnTnm ?? '',
       line: subwayNm ?? '',
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_subway/presentation/screen/component/list_item.dart';
 import 'package:flutter_subway/presentation/viewmodel/search_list_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -29,27 +30,32 @@ class _SearchListScreenState extends State<SearchListScreen> {
       ),
       body: Column(
         children: [
-          TextField(
-            onSubmitted: (value) {
-              final query = _queryTextEditingController.text;
-              viewModel.onSearch(query);
-            },
-            controller: _queryTextEditingController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: '예) 1호선',
-              suffixIcon: IconButton(
-                onPressed: () {
-                  final query = _queryTextEditingController.text;
-                  viewModel.onSearch(query);
-                },
-                icon: Icon(Icons.search),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onSubmitted: (value) {
+                final query = _queryTextEditingController.text;
+                viewModel.onSearch(query);
+              },
+              controller: _queryTextEditingController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                hintText: '예) 1호선',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    final query = _queryTextEditingController.text;
+                    viewModel.onSearch(query);
+                  },
+                  icon: const Icon(Icons.search),
+                ),
               ),
             ),
           ),
           Expanded(
             child: ListView(
-              children: viewModel.subways.map((e) => Text(e.line)).toList(),
+              children: viewModel.subways.map((subway) => ListItem(subway: subway)).toList(),
             ),
           )
         ],

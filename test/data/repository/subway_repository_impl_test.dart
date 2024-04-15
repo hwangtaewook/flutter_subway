@@ -7,5 +7,6 @@ void main() {
   test('Subway Respository method test', () async {
     final SubwayRepository repo = SubwayRepositoryImpl(api: SubwayApi());
     final data = await repo.getSubwaysInfo('1호선');
+    print(data);
   });
 }
