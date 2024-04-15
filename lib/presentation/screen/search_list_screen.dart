@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_subway/presentation/screen/component/list_item.dart';
+import 'package:flutter_subway/presentation/screen/component/loading_ui.dart';
 import 'package:flutter_subway/presentation/viewmodel/search_list_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class _SearchListScreenState extends State<SearchListScreen> {
               controller: _queryTextEditingController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 hintText: '예) 1호선',
                 suffixIcon: IconButton(
@@ -55,7 +56,11 @@ class _SearchListScreenState extends State<SearchListScreen> {
           ),
           Expanded(
             child: ListView(
-              children: viewModel.subways.map((subway) => ListItem(subway: subway)).toList(),
+              children: viewModel.isLoading
+                  ? List.generate(5, (index) => LoadingUI())
+                  : viewModel.subways
+                      .map((subway) => ListItem(subway: subway))
+                      .toList(),
             ),
           )
         ],

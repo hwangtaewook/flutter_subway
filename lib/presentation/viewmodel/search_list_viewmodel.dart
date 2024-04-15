@@ -13,8 +13,16 @@ class SearchListVieModel with ChangeNotifier {
 
   List<Subway> get subways => List.unmodifiable(_subways);
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
   void onSearch(String query) async {
+    _isLoading = true;
+    notifyListeners();
+
     _subways = await _subwayRepository.getSubwaysInfo(query);
+    _isLoading = false;
     notifyListeners();
   }
 }
